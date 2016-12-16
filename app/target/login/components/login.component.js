@@ -13,11 +13,13 @@ var usuario_1 = require("../../usuario/class/usuario");
 var usuario_service_1 = require("../../usuario/service/usuario.service");
 var login_service_1 = require("../../login/service/login.service");
 var router_1 = require("@angular/router");
+var core_2 = require("angular2-cookie/core");
 var LoginComponent = (function () {
-    function LoginComponent(usuarioService, loginService, router) {
+    function LoginComponent(usuarioService, loginService, router, _cookieService) {
         this.usuarioService = usuarioService;
         this.loginService = loginService;
         this.router = router;
+        this._cookieService = _cookieService;
         this.usuario = new usuario_1.Usuario();
         this.showLoading = false;
         this.errorMessage = null;
@@ -29,9 +31,13 @@ var LoginComponent = (function () {
         this.errorMessage = null;
         this.usuarioService.insert(this.usuario).subscribe(function (result) { return _this.onLoginResult(result); }, function (error) { return _this.onLoginError(error); });
     };
+    LoginComponent.prototype.setarCookie = function (response) {
+        this._cookieService.put("meuToken", response.token);
+    };
     LoginComponent.prototype.onLoginResult = function (result) {
         console.log(result);
         this.loginService.setLogin(result.usuario, result.token);
+        this.setarCookie(result);
         this.router.navigate(['/home']);
     };
     LoginComponent.prototype.onLoginError = function (error) {
@@ -43,10 +49,13 @@ var LoginComponent = (function () {
 LoginComponent = __decorate([
     core_1.Component({
         selector: "login",
-        providers: [usuario_service_1.UsuarioService, login_service_1.LoginService],
+        providers: [usuario_service_1.UsuarioService, login_service_1.LoginService, core_2.CookieService],
         templateUrl: "/app/login/templates/login.template.html"
     }),
-    __metadata("design:paramtypes", [usuario_service_1.UsuarioService, login_service_1.LoginService, router_1.Router])
+    __metadata("design:paramtypes", [usuario_service_1.UsuarioService,
+        login_service_1.LoginService,
+        router_1.Router,
+        core_2.CookieService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

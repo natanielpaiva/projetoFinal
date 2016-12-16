@@ -5,6 +5,8 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable, } from 'rxjs/Observable';
 import { HeadersService } from './../../config/headers';
+import {CookieService} from 'angular2-cookie/core';
+
 
 @Injectable()
 export class UsuarioService {
@@ -13,7 +15,8 @@ export class UsuarioService {
     urlLogin = 'https://rest-auth.herokuapp.com/login';
 
     constructor(private http: Http,
-        private _header: HeadersService) { }
+        private _header: HeadersService,
+        private _cookieService:CookieService) { }
 
     public insert(u: Usuario) {
         return this.http
@@ -23,7 +26,9 @@ export class UsuarioService {
 
     usuarios: Usuario[];
     public getListUsuario(): Observable<Usuario[]> {
-        return this.http.get(this.usuarioUrl)
+        
+        return this.http.get(this.usuarioUrl, 
+            this._header.getJsonHeaders(this._cookieService.get("meuToken")))
             .map(res => res.json())
             .catch(this.handleError);
     }

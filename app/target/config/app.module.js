@@ -18,6 +18,7 @@ var home_component_1 = require("./../home/components/home.component");
 var login_component_1 = require("./../login/components/login.component");
 var http_1 = require("@angular/http");
 var headers_1 = require("./headers");
+var cookies_service_1 = require("angular2-cookie/services/cookies.service");
 var route_1 = require("./route");
 var AppModule = (function () {
     function AppModule() {
@@ -42,7 +43,7 @@ AppModule = __decorate([
         ],
         //Adicionar essa linha
         bootstrap: [app_component_1.AppComponent],
-        providers: [headers_1.HeadersService]
+        providers: [headers_1.HeadersService, cookies_service_1.CookieService]
     }),
     __metadata("design:paramtypes", [])
 ], AppModule);

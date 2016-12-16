@@ -8,6 +8,8 @@ import { HomeComponent } from './../home/components/home.component';
 import { LoginComponent } from './../login/components/login.component';
 import { HttpModule } from '@angular/http';
 import { HeadersService } from './headers';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 
 import { routing } from './route';
 @NgModule({
@@ -27,6 +29,6 @@ import { routing } from './route';
     ],
     //Adicionar essa linha
     bootstrap: [AppComponent],
-    providers:[HeadersService]
+    providers: [HeadersService, CookieService]
 })
 export class AppModule { }

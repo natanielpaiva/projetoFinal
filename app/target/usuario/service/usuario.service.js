@@ -14,10 +14,12 @@ var http_1 = require("@angular/http");
 var http_2 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 var headers_1 = require("./../../config/headers");
+var core_2 = require("angular2-cookie/core");
 var UsuarioService = (function () {
-    function UsuarioService(http, _header) {
+    function UsuarioService(http, _header, _cookieService) {
         this.http = http;
         this._header = _header;
+        this._cookieService = _cookieService;
         this.usuarioUrl = 'https://rest-auth.herokuapp.com/usuario/';
         this.urlLogin = 'https://rest-auth.herokuapp.com/login';
     }
@@ -27,7 +29,7 @@ var UsuarioService = (function () {
             .map(function (res) { return res.json(); });
     };
     UsuarioService.prototype.getListUsuario = function () {
-        return this.http.get(this.usuarioUrl)
+        return this.http.get(this.usuarioUrl, this._header.getJsonHeaders(this._cookieService.get("meuToken")))
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
@@ -71,7 +73,8 @@ var UsuarioService = (function () {
 UsuarioService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http,
-        headers_1.HeadersService])
+        headers_1.HeadersService,
+        core_2.CookieService])
 ], UsuarioService);
 exports.UsuarioService = UsuarioService;
 //# sourceMappingURL=usuario.service.js.map
