@@ -1,0 +1,51 @@
+<h2>Exemplo de exemplos</h2>
+<div class="form-group col-xs-6 col-md-6">
+    <label>Exemplo</label>
+    <input class="form-control" [(ngModel)]="exemploObject.exemplo"   />
+</div>
+<div class="form-group col-md-12">
+    <label>Exemplo Número</label>
+    <input class="form-control" [(ngModel)]="exemploObject.exemploNumero"   />
+</div>
+<div *ngIf="!edit" class="form-group col-md-3">
+    <button class="btn btn-primary" (click)="salvar(exemploObject)">Salvar</button>
+</div>
+<div *ngIf="edit" class="form-group col-md-3">
+    <button class="btn btn-primary" (click)="editar(exemploObject, true)">Editar</button>
+</div>
+<table class="table table-hover table-striped">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Exemplo
+        </th>
+        <th>
+            Exemplo número
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    <tr *ngFor="let exemplo of exemplos; let i = index">
+        <td>
+            {{exemplo._id}}
+        </td>
+        <td>
+            {{exemplo.exemplo}}
+        </td>
+        <td>
+            {{exemplo.exemploNumero}}
+        </td>
+        <td>
+            <button class="btn btn-primary" (click)=editar(exemplo)>Editar</button>
+        </td>
+        <td>
+            <button class="btn btn-danger" (click)="deletar(exemplo._id, i)">Deletar</button>
+        </td>
+    </tr>
+</table>

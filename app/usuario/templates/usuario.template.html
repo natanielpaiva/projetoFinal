@@ -1,0 +1,84 @@
+<h2>Exemplo de usuários</h2>
+<div class="form-group col-xs-6 col-md-6">
+    <label>Nome</label>
+    <input class="form-control" [(ngModel)]="usuarioObject.nome"   />
+</div>
+<div class="form-group col-xs-6 col-md-6">
+    <label>Login</label>
+    <input class="form-control" [(ngModel)]="usuarioObject.login"   />
+</div>
+<div class="form-group col-xs-6 col-md-6">
+    <label>Senha</label>
+    <input type="password" class="form-control" [(ngModel)]="usuarioObject.senha"   />
+</div>
+<div class="form-group col-xs-6 col-md-6">
+    <label>Perfil</label>
+    <select class="form-control" [(ngModel)]="usuarioObject.perfil"  >
+        <option [ngValue]="p"  *ngFor="let p of perfis">{{p.nome}}</option>
+    </select>
+       
+</div>
+<div class="form-group col-md-6">
+    <label>Idade</label>
+    <input class="form-control" [(ngModel)]="usuarioObject.idade"   />
+</div>
+
+<div class="form-group col-md-6">
+    <label>Cep</label>
+    <input type="number" class="form-control" 
+           [(ngModel)]="usuarioObject.cep" (ngModelChange)="onChange($event)"  />
+</div>
+
+<div class="form-group col-md-12">
+    <label>Endereço</label>
+    <input type="text" class="form-control" [(ngModel)]="usuarioObject.endereco"   />
+</div>
+<div *ngIf="!edit" class="form-group col-md-3">
+    <button class="btn btn-primary" (click)="salvarUsuario(usuarioObject)">Salvar</button>
+</div>
+<div *ngIf="edit" class="form-group col-md-3">
+    <button class="btn btn-primary" (click)="editarUsuario(usuarioObject, true)">Editar</button>
+</div>
+<table class="table table-hover table-striped">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Nome
+        </th>
+        <th>
+            Idade
+        </th>
+        <th>
+            Perfil
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    
+    <tr *ngFor="let usuario of usuarios; let i = index">
+        <td>
+            {{usuario._id}}
+        </td>
+        <td>
+            {{usuario.nome}}
+        </td>
+        <td>
+            {{usuario.idade}}
+        </td>
+        <td>
+            {{usuario.perfil.nome}}
+        </td>
+        <td>
+            <button class="btn btn-primary" (click)=editarUsuario(usuario)>Editar</button>
+        </td>
+        <td>
+            <button class="btn btn-danger" (click)="deletarUsuario(usuario._id, i)">Deletar</button>
+        </td>
+    </tr>
+</table>
